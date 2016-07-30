@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    body
+    {
+        background-color: #555;
+    }
+    </style>
+</head>
+
+<body>
+    <center>
+        <canvas id="canvas" width="1024" height="720">
+            LOL tu peux pas
+        </canvas>
+
+        <script id="shader-fs" type="x-shader/x-fragment">
+            precision mediump float;
+
+            uniform sampler2D tex;
+            varying vec3 v_position;
+            varying vec2 v_texcoord;
+
+            void main(void)
+            {
+                gl_FragColor = texture2D(tex, v_texcoord);
+            }
+        </script>
+
+        <script id="shader-vs" type="x-shader/x-vertex">
+            attribute vec3 in_position;
+            attribute vec2 in_texcoord;
+
+            uniform mat4 projectionMatrix;
+            uniform mat4 modelViewMatrix;
+
+            varying vec3 v_position;
+            varying vec2 v_texcoord;
+
+            void main(void)
+            {
+                v_position = in_position;
+                v_texcoord = in_texcoord;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(in_position, 1.0);
+            }
+        </script>
+
+        <script type="text/javascript" src="maths.js"></script>
+        <script type="text/javascript" src="webgl.js"></script>
+        <script type="text/javascript" src="shader.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+    </center>
+</body>
+</html>
